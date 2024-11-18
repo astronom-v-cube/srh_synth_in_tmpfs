@@ -18,14 +18,14 @@ done_tasks_file = "done_tasks.json"
 flags_freq = [12960, 13720, 14480, 15240, 16760, 17520, 18280, 19040, 19800, 20560, 21320, 22080, 23400]#[12960, 13720, 23000]
 number_of_clean_iter = 200000
 
-frequencies = list(range(20))
+frequencies = list(range(16))
 scans = list(range(20))
 num_threads = 10
 ######                ######
 
 synthesizer = GlobaMultiSynth(directory_of_data, directory_of_result, path_to_calib_tables, number_of_clean_iter)
-synthesizer.start_procedures()
 synthesizer.start_log('synth_log')
+synthesizer.start_procedures()
 lock = Lock()
 
 files = sorted(os.listdir(directory_of_data))

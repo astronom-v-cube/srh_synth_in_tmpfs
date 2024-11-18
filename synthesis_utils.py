@@ -36,8 +36,19 @@ class GlobaMultiSynth():
         print(info_msg)
         logging.info(info_msg)
 
-    @staticmethod
-    def start_procedures():
+    def remove_srh_directories(self, tmp_dir='/tmp'):
+        for item in os.listdir(tmp_dir):
+            item_path = os.path.join(tmp_dir, item)
+            if os.path.isdir(item_path) and item.startswith('srh'):
+                try:
+                    shutil.rmtree(item_path)
+                    logging.info(f"Remove folder: {item_path}")
+                except Exception as e:
+                    print(f"Error when deleting {item_path}: {e}")
+
+    def start_procedures(self):
+        self.remove_srh_directories()
+
         import os
         N_THREADS = "1"
         os.environ['OMP_NUM_THREADS'] = N_THREADS
@@ -65,6 +76,8 @@ class GlobaMultiSynth():
 
         except Exception as err:
             print(err)
+
+
 
     def indicate_observation_range(self, observation_range):
         if observation_range == '0306':
@@ -155,3 +168,4 @@ class GlobaMultiSynth():
         os.remove(all_tasks_file)
         os.remove(done_tasks_file)
         logging.info('Files of progress removed')
+        self.remove_srh_directories()
