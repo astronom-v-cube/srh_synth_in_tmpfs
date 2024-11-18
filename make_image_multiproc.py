@@ -8,20 +8,7 @@ import os
 from tqdm import tqdm
 from threading import Lock
 
-###### Для заполнения ######
-observation_range = '1224'
-path_to_calib_tables = '/home/dmitry/Documents/calib_tables/2024/20240514 - 1224 - 02-02-49.json'
-directory_of_data = '/home/dmitry/14may/1224/data'
-directory_of_result = '/mnt/astro/14maytetette'
-all_tasks_file = "all_tasks.json"
-done_tasks_file = "done_tasks.json"
-flags_freq = [12960, 13720, 14480, 15240, 16760, 17520, 18280, 19040, 19800, 20560, 21320, 22080, 23400]#[12960, 13720, 23000]
-number_of_clean_iter = 200000
-
-frequencies = list(range(16))
-scans = list(range(20))
-num_threads = 10
-######                ######
+from config import *
 
 synthesizer = GlobaMultiSynth(directory_of_data, directory_of_result, path_to_calib_tables, number_of_clean_iter)
 synthesizer.start_log('synth_log')
@@ -40,10 +27,10 @@ def task_wrapper(task):
         synthesizer.image_maker(file_name, frequency, scan_number)
         return task, True
     except Exception as e:
-        print(f"Error processing {task}: {e}")
+        logging.info(f"Error processing {task}: {e}")
         return task, False
 
-def main(files, frequencies, scans, num_threads, all_tasks_file, done_tasks_file):
+def main():
     os.system('python -m casaconfig --update-all')
 
     all_tasks = [
@@ -77,9 +64,3 @@ def main(files, frequencies, scans, num_threads, all_tasks_file, done_tasks_file
                     pbar.update(1)
 
     synthesizer.remove_progress(all_tasks_file, done_tasks_file)
-
-if __name__ == "__main__":
-    main(files, frequencies, scans, num_threads, all_tasks_file, done_tasks_file)
-
-
-
