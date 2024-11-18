@@ -77,8 +77,6 @@ class GlobaMultiSynth():
         except Exception as err:
             print(err)
 
-
-
     def indicate_observation_range(self, observation_range):
         if observation_range == '0306':
             return self.list_of_freqs_0306
