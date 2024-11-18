@@ -47,7 +47,6 @@ class GlobaMultiSynth():
                     print(f"Error when deleting {item_path}: {e}")
 
     def start_procedures(self):
-        self.remove_srh_directories()
 
         import os
         N_THREADS = "1"

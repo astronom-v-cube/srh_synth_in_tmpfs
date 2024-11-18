@@ -31,6 +31,7 @@ def task_wrapper(task):
         return task, False
 
 def main():
+    synthesizer.remove_srh_directories()
     os.system('python -m casaconfig --update-all')
 
     all_tasks = [
