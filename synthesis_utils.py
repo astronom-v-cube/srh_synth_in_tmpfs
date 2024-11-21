@@ -84,11 +84,6 @@ class GlobaMultiSynth():
         elif observation_range == '1224':
             return self.list_of_freqs_1224
 
-    def find_free_ram(self):
-        memory_info = psutil.virtual_memory()
-        free_ram = memory_info.available / (1024 ** 2)
-        return free_ram
-
     def image_maker(self, file_of_data, frequency, scan_number):
         """
         Мультипроцессинговая функция по созданию радиоизображений
