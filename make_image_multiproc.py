@@ -1,15 +1,14 @@
-import os
-import logging
 import concurrent.futures
-from synthesis_utils import GlobaMultiSynth
-from tqdm import tqdm
 import itertools
+import logging
 import os
-from tqdm import tqdm
-from threading import Lock
 import sys
+from threading import Lock
+
+from tqdm import tqdm
 
 from config import *
+from synthesis_utils import GlobaMultiSynth
 
 synthesizer = GlobaMultiSynth(directory_of_data, directory_of_result, path_to_calib_tables, number_of_clean_iter)
 synthesizer.start_log('synth_log')
